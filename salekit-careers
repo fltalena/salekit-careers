@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Отбор команды Salekit и адаптация</title>
+  <meta name="description" content="Работа в Salekit: чем занимаемся, роли и реальные задачи, процесс отбора и адаптация 30/60/90. Отклик за 60 секунд.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS RESET (trimmed) ===== */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;
+      line-height:1.5;color:#EEF2FF;background:#0B1020}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    :root{
+      --bg:#0B1020;           /* основной фон (темный) */
+      --bg-soft:#0E1530;      /* мягкий фон секций */
+      --bg-elev:#121A3A;      /* приподнятые карточки */
+      --text:#E5E7EB;         /* основной текст */
+      --muted:#94A3B8;        /* вторичный текст */
+      --accent:#3B82F6;       /* синий акцент */
+      --accent-2:#1D4ED8;     /* hover */
+      --ok:#10B981;
+      --warn:#F59E0B;
+      --danger:#EF4444;
+      --radius:14px;
+      --radius-sm:10px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --maxw:1180px;
+    }
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+    /* ===== Header ===== */
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(140%) blur(14px);
+      background:linear-gradient(180deg,rgba(11,16,32,.85),rgba(11,16,32,.6) 60%,rgba(11,16,32,0));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;gap:18px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:#fff}
+    .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);
+      box-shadow:0 0 20px rgba(59,130,246,.8)}
+    .nav a{color:var(--muted);font-weight:500}
+    .nav a:hover{color:#fff}
+    .nav .spacer{flex:1}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.08);
+      background:var(--accent);color:#fff;font-weight:600;box-shadow:var(--shadow);cursor:pointer}
+    .btn:hover{background:var(--accent-2)}
+    .btn--ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.16);box-shadow:none}
+    .btn--ghost:hover{border-color:rgba(255,255,255,.3)}
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;padding:72px 0 36px;background:
+      radial-gradient(1200px 600px at 50% -10%,rgba(59,130,246,.30),transparent 60%),
+      linear-gradient(180deg,#0B1020 10%,#0C1026 60%,#0B1020)}
+    .hero h1{font-size:48px;line-height:1.1;margin:14px 0 12px;color:#fff;letter-spacing:.2px}
+    .hero p.lead{font-size:18px;color:var(--muted);max-width:900px}
+    .hero .badges{display:flex;flex-wrap:wrap;gap:16px;margin:26px 0 0}
+    .badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);padding:12px 16px;border-radius:var(--radius-sm);color:#fff}
+    .badge .icon{opacity:.9}
+    .cta{display:flex;gap:12px;margin:26px 0 8px;flex-wrap:wrap}
+    .sub{color:var(--muted);font-size:14px}
+    /* ===== Sections ===== */
+    section{padding:72px 0;border-top:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+    section.alt{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent)}
+    h2{color:#fff;font-size:32px;margin:0 0 18px}
+    .grid{display:grid;gap:16px}
+    .grid.cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{background:var(--bg-elev);border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px;color:#fff}
+    .muted{color:var(--muted)}
+    /* Stories */
+    .stories{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .story{display:flex;gap:14px}
+    .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#334155,#0ea5e9)}
+    /* Roles */
+    .roles{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .role .meta{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+    .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.15);color:#fff}
+    .role ul{margin:10px 0 0 18px}
+    /* Process timeline */
+    .timeline{display:grid;gap:16px;grid-template-columns:repeat(4,minmax(0,1fr))}
+    .step{position:relative;padding:18px;border-radius:var(--radius);background:var(--bg-elev);
+      border:1px solid rgba(255,255,255,.08)}
+    .step b{color:#fff}
+    /* Onboarding */
+    .twocol{grid-template-columns:repeat(2,minmax(0,1fr))}
+    /* FAQ */
+    details{background:var(--bg-elev);border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);padding:16px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;color:#fff;font-weight:600}
+    /* Footer */
+    footer{padding:40px 0;color:var(--muted)}
+    /* Responsive */
+    @media (max-width:1000px){
+      .grid.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .stories{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .roles{grid-template-columns:1fr}
+      .timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .twocol{grid-template-columns:1fr}
+      .hero h1{font-size:40px}
+    }
+    @media (max-width:640px){
+      .grid.cards{grid-template-columns:1fr}
+      .stories{grid-template-columns:1fr}
+      .timeline{grid-template-columns:1fr}
+      .hero h1{font-size:34px}
+    }
+    .hint{font-size:14px;color:var(--muted)}
+    .divider{height:1px;background:rgba(255,255,255,.08);margin:24px 0}
+    .right{display:flex;gap:10px;justify-content:flex-end}
+  </style>
+</head>
+<body>
+  <!-- ===== Header / Nav ===== -->
+  <header>
+    <div class="container nav">
+      <div class="brand"><span class="dot"></span> Salekit</div>
+      <a href="#about">О компании</a>
+      <a href="#stories">Истории</a>
+      <a href="#roles">Роли и задачи</a>
+      <a href="#process">Отбор → адаптация</a>
+      <a href="#perks">Условия</a>
+      <a href="#faq">FAQ</a>
+      <div class="spacer"></div>
+      <a class="btn btn--ghost" href="#apply" aria-label="Откликнуться">Откликнуться</a>
+      <button class="btn" onclick="document.querySelector('#apply').scrollIntoView({behavior:'smooth'})">Отклик за 60 секунд</button>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <div class="container">
+      <span class="pill" style="border-color:rgba(255,255,255,.2)">Отбор команды Salekit и адаптация</span>
+      <h1>Работа с продуктом, который помогает продажам расти быстрее</h1>
+      <p class="lead">
+        Мы создаём Salekit — платформу автоворонок, интеграций и сервисных коммуникаций для B2B‑команд.
+        Эта страница честно расскажет, <b>как мы работаем</b>, какие роли ищем и
+        <b>что будем ждать от вас в первые 30/60/90 дней</b>.
+      </p>
+      <div class="cta">
+        <a class="btn" href="#apply">Откликнуться сейчас</a>
+        <a class="btn btn--ghost" href="#roles">Посмотреть роли</a>
+      </div>
+      <div class="sub">Без резюме можно. Просто оставьте контакты и ссылки.</div>
+
+      <div class="badges">
+        <div class="badge"><span class="icon">🏢</span><b>3000+ компаний</b><span class="muted">автоматизировали коммуникации</span></div>
+        <div class="badge"><span class="icon">📈</span><b>ROI</b><span class="muted">рост выручки у клиентов за счёт автоворонок</span></div>
+        <div class="badge"><span class="icon">⚡</span><b>Быстрые внедрения</b><span class="muted">первые результаты за 2–4 недели</span></div>
+        <div class="badge"><span class="icon">🌍</span><b>Remote‑first</b><span class="muted">работаем распределённо и асинхронно</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about">
+    <div class="container">
+      <h2>О компании</h2>
+      <div class="grid cards">
+        <div class="card">
+          <h3>Продукт</h3>
+          <div class="muted">Конструктор автоворонок, триггеры, сегментация, A/B‑тесты, события.</div>
+        </div>
+        <div class="card">
+          <h3>Интеграции</h3>
+          <div class="muted">CRM, мессенджеры, телефония, платежи, вебхуки.</div>
+        </div>
+        <div class="card">
+          <h3>Аналитика</h3>
+          <div class="muted">LTV, CAC, когорты, атрибуция по каналам и дашборды.</div>
+        </div>
+        <div class="card">
+          <h3>Customer Success</h3>
+          <div class="muted">Внедрение, обучение, сопровождение роста метрик.</div>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:14px">Мы не продаём «сказки». Внедрение — это таблицы, тайминг, гипотезы и исправление чужих косяков. Если вам это нравится — вы наши.</p>
+    </div>
+  </section>
+
+  <!-- ===== Stories ===== -->
+  <section id="stories" class="alt">
+    <div class="container">
+      <h2>Истории команды (коротко и с цифрами)</h2>
+      <div class="grid stories">
+        <div class="card story">
+          <div class="avatar"></div>
+          <div>
+            <b>Мария, Продакт‑менеджер</b>
+            <p class="muted">За 6 месяцев ушли от ручных сегментаций к событиям + динамическим офферам. Конверсия в оплату из триггерных цепочек выросла с 2,3% до 6,1%.</p>
+          </div>
+        </div>
+        <div class="card story">
+          <div class="avatar"></div>
+          <div>
+            <b>Игорь, Инженер интеграций</b>
+            <p class="muted">Сшили CRM, телегу и телефонию через вебхуки. SLA по доставке событий — 99,95%. Минус 3 человека ручного труда у клиента.</p>
+          </div>
+        </div>
+        <div class="card story">
+          <div class="avatar"></div>
+          <div>
+            <b>Ольга, Customer Success</b>
+            <p class="muted">За квартал провела 18 запусков. Средний time‑to‑value — 9 рабочих дней.</p>
+          </div>
+        </div>
+      </div>
+      <div class="right" style="margin-top:12px">
+        <a class="btn btn--ghost" href="#apply">Читать все истории (на собеседовании)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Roles ===== -->
+  <section id="roles">
+    <div class="container">
+      <h2>Открытые роли и реальные 30/60/90</h2>
+      <div class="grid roles">
+        <!-- Product Manager -->
+        <div class="card role">
+          <h3>Product Manager (Mid/Senior)</h3>
+          <div class="meta">
+            <span class="pill">Full‑time</span>
+            <span class="pill">Remote / Hybrid</span>
+            <span class="pill">220–320k net + KPI</span>
+          </div>
+          <div class="muted"><b>Что будете делать:</b> роудмап (сегментация по событиям, редактор условий, экспорты), метрики (активация M0→M1, удержание M3, конверсия X→Y), исследования (3–5 интервью/нед, CJM, приоритезация RICE/ICE).</div>
+          <div class="divider"></div>
+          <div class="muted"><b>Стек:</b> Amplitude/Metabase, Jira, Figma, SQL (read). <b>Ожидания:</b> самостоятельность, работа с данными, уметь сказать «нет».</div>
+          <ul class="muted">
+            <li><b>30 дн.</b> Разобрался в метриках, 10 интервью, защитил 2 гипотезы.</li>
+            <li><b>60 дн.</b> 1–2 фичи в прод, +X п.п. к активации.</li>
+            <li><b>90 дн.</b> Стабильный цикл discovery→delivery, SLA релизов выполняется.</li>
+          </ul>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn" href="#apply">Откликнуться</a>
+            <a class="btn btn--ghost" href="#tasks">Смотреть задачи роли</a>
+          </div>
+        </div>
+        <!-- Integration Engineer -->
+        <div class="card role">
+          <h3>Инженер интеграций</h3>
+          <div class="meta">
+            <span class="pill">Python/TypeScript</span>
+            <span class="pill">Очереди · Вебхуки</span>
+            <span class="pill">Postgres</span>
+          </div>
+          <div class="muted"><b>Что будете делать:</b> вебхуки, очереди, ретраи с экспоненциальной задержкой, дедупликация, логгирование.</div>
+          <ul class="muted">
+            <li><b>30 дн.</b> Поднял окружение, закрыл 2 интеграции.</li>
+            <li><b>60 дн.</b> Внедрил retries и мониторинг, снизил фейлы на X%.</li>
+            <li><b>90 дн.</b> Релизы без сопровождения, SLA 99.9%.</li>
+          </ul>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn" href="#apply">Откликнуться</a>
+          </div>
+        </div>
+        <!-- Growth -->
+        <div class="card role">
+          <h3>Growth‑маркетолог</h3>
+          <div class="meta">
+            <span class="pill">Performance + CRM</span>
+            <span class="pill">А/B офферы</span>
+            <span class="pill">CAC · LTV</span>
+          </div>
+          <div class="muted"><b>Что будете делать:</b> перформанс‑кампании, CRM‑маркетинг, A/B гипотез по офферам и креативам, атрибуция.</div>
+          <ul class="muted">
+            <li><b>30 дн.</b> Аудит воронок, базовый план гипотез.</li>
+            <li><b>60 дн.</b> Первые тесты, снижение CAC/рост активации.</li>
+            <li><b>90 дн.</b> Масштабирование каналов с окупаемостью.</li>
+          </ul>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn" href="#apply">Откликнуться</a>
+          </div>
+        </div>
+        <!-- CS -->
+        <div class="card role">
+          <h3>Customer Success</h3>
+          <div class="meta">
+            <span class="pill">Внедрение</span>
+            <span class="pill">Обучение</span>
+            <span class="pill">NPS · Retention</span>
+          </div>
+          <div class="muted"><b>Что будете делать:</b> запуск клиента, обучение, AM‑работа с метриками. <b>Метрики:</b> time‑to‑value, удержание, NPS.</div>
+          <ul class="muted">
+            <li><b>30 дн.</b> Онбординг, первые внедрения под менторством.</li>
+            <li><b>60 дн.</b> Самостоятельные запуски, шаблоны воркфлоу.</li>
+            <li><b>90 дн.</b> Портфель в зелёной зоне по KPI.</li>
+          </ul>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn" href="#apply">Откликнуться</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tasks ===== -->
+  <section id="tasks" class="alt">
+    <div class="container">
+      <h2>Конкретные задачи «на завтра»</h2>
+      <div class="grid">
+        <div class="card">
+          <ul class="muted">
+            <li>Собрать атрибуцию событий по каналам в дашборде, синк каждые 15 минут.</li>
+            <li>Сократить time‑to‑value с 14 до 7 дней: шаблоны воркфлоу + чек‑листы.</li>
+            <li>Добавить retries для вебхуков (экспоненциальная задержка, дедупликация).</li>
+            <li>A/B welcome‑цепочки: 3 варианта оффера, метрика — активация M1.</li>
+          </ul>
+          <p class="hint">В задаче всегда есть владелец, метрика успеха и дедлайн. Без этого в работу не берём.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Process ===== -->
+  <section id="process">
+    <div class="container">
+      <h2>Процесс отбора (прозрачно и быстро)</h2>
+      <div class="timeline">
+        <div class="step"><b>1) Заявка (5 мин)</b><br><span class="muted">Контакты + 3 коротких ответа.</span></div>
+        <div class="step"><b>2) Скрининг (20–30 мин)</b><br><span class="muted">Разговор по задачам и ожиданиям.</span></div>
+        <div class="step"><b>3) Практика (2–4 часа)</b><br><span class="muted">Оплачиваемая мини‑задача из реального бэклога.</span></div>
+        <div class="step"><b>4) Финал (45–60 мин)</b><br><span class="muted">Синк с руководителем + оффер по метрикам.</span></div>
+      </div>
+      <p class="hint" style="margin-top:12px">Решение обычно — в течение 5 рабочих дней. Если дольше — честно объясним, почему.</p>
+    </div>
+  </section>
+
+  <!-- ===== Onboarding ===== -->
+  <section id="onboarding" class="alt">
+    <div class="container">
+      <h2>Адаптация: первые 90 дней</h2>
+      <div class="grid twocol">
+        <div class="card">
+          <h3>До выхода (T‑7)</h3>
+          <div class="muted">Welcome‑письмо, доступы, buddy + ментор.</div>
+          <div class="divider"></div>
+          <h3>День 1</h3>
+          <div class="muted">Онбординг‑сессия, технический сетап, первая микро‑задача.</div>
+          <div class="divider"></div>
+          <h3>Неделя 1</h3>
+          <div class="muted">Цели в Notion, «тени» на звонках, план устранения блокеров.</div>
+        </div>
+        <div class="card">
+          <h3>Недели 2–4</h3>
+          <div class="muted">1–2 «боевые» задачи с метрикой, еженедельный 1:1, пятничное мини‑демо.</div>
+          <div class="divider"></div>
+          <h3>30/60/90</h3>
+          <ul class="muted">
+            <li><b>30:</b> автономность 60%, первая метрика сдвинута.</li>
+            <li><b>60:</b> владение областью, релизы без сопровождения.</li>
+            <li><b>90:</b> KPI по роли в зелёной зоне, план на квартал.</li>
+          </ul>
+          <p class="hint">Метрики онбординга: time‑to‑first‑value, % закрытых первичных задач, NPS онбординга, ретеншн 90 дней.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Perks ===== -->
+  <section id="perks">
+    <div class="container">
+      <h2>Условия и перки (без шума)</h2>
+      <div class="grid cards">
+        <div class="card"><h3>Прозрачные грейды</h3><div class="muted">Пересмотр раз в полгода по метрикам.</div></div>
+        <div class="card"><h3>Формат</h3><div class="muted">Гибрид/удалёнка, нормальные ноуты и доступы в первый день.</div></div>
+        <div class="card"><h3>Честная оплата</h3><div class="muted">Оплачиваем практику и овертаймы по факту.</div></div>
+        <div class="card"><h3>Обучение</h3><div class="muted">Бюджет на курсы, митапы и книги — без квестов.</div></div>
+        <div class="card"><h3>Отпуск и больничные</h3><div class="muted">28 календарных + «ничего не сломается» больничные.</div></div>
+        <div class="card"><h3>Инструменты</h3><div class="muted">Доступ к дашбордам и бэклогу с первого дня.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="alt">
+    <div class="container">
+      <h2>FAQ</h2>
+      <details><summary>Удалёнка ок?</summary><p class="muted">Да, но синки по Москве/Екатеринбургу/Лондону — предупреждаем заранее.</p></details>
+      <details><summary>Что с испытательным сроком?</summary><p class="muted">3 месяца, с промежуточной оценкой на 6‑й неделе.</p></details>
+      <details><summary>Если не получилось — будет обратная связь?</summary><p class="muted">Да, даём фидбек по задачам с примерами.</p></details>
+      <details><summary>Про деньги?</summary><p class="muted">Сразу вилки и формула бонусов (KPI по роли).</p></details>
+    </div>
+  </section>
+
+  <!-- ===== Apply ===== -->
+  <section id="apply">
+    <div class="container">
+      <h2>Отклик за 60 секунд</h2>
+      <div class="grid">
+        <form class="card" id="apply-form">
+          <label class="muted">Имя<br><input required name="name" placeholder="Мария Иванова" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff"></label><br><br>
+          <label class="muted">Telegram или email<br><input required name="contact" placeholder="@username или name@domain.com" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff"></label><br><br>
+          <label class="muted">Ссылки (GitHub/LinkedIn/портфолио)<br><input name="links" placeholder="https://..." style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff"></label><br><br>
+          <label class="muted">Роль<br>
+            <select name="role" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff">
+              <option>Product</option>
+              <option>Интеграции</option>
+              <option>Growth</option>
+              <option>Customer Success</option>
+            </select>
+          </label><br><br>
+          <label class="muted">1) Ваш результат, которым гордитесь (цифры/влияние)
+            <textarea name="q1" rows="3" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff"></textarea>
+          </label><br>
+          <label class="muted">2) Задача, где вы облажались и что исправили
+            <textarea name="q2" rows="3" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff"></textarea>
+          </label><br>
+          <label class="muted">3) Почему сейчас именно Salekit?
+            <textarea name="q3" rows="3" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0b132b;color:#fff"></textarea>
+          </label><br>
+          <label style="display:flex;align-items:center;gap:8px" class="muted">
+            <input type="checkbox" required> Согласен на обработку персональных данных
+          </label><br>
+          <div class="right">
+            <button type="submit" class="btn">Отправить</button>
+            <a class="btn btn--ghost" href="#top">Наверх</a>
+          </div>
+          <p id="form-success" class="hint" style="display:none;margin-top:12px">Спасибо! Мы ответим до <span id="deadline"></span>. Если не ответили — смело пингуйте нас в Telegram.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="divider"></div>
+      <div style="display:flex;gap:12px;align-items:center;color:#fff"><span class="dot" style="width:10px;height:10px"></span> Salekit</div>
+      <div class="muted" style="margin-top:8px">© 2025 · Политика конфиденциальности · careers@salekit.example</div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth anchor for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id=a.getAttribute('href');
+        const el=document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
+      });
+    });
+    // Fake form handler (replace with your endpoint or Tilda form)
+    const form=document.getElementById('apply-form');
+    function addBusinessDays(date, days) {
+      // Mon-Fri add
+      const result = new Date(date);
+      let added = 0;
+      while (added < days) {
+        result.setDate(result.getDate()+1);
+        const day = result.getDay(); // 0 Sun ... 6 Sat
+        if (day !== 0 && day !== 6) added++;
+      }
+      return result;
+    }
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      // Here you would send data to your backend / Google Sheet
+      const dl = addBusinessDays(new Date(), 5);
+      document.getElementById('deadline').textContent = dl.toLocaleDateString('ru-RU');
+      document.getElementById('form-success').style.display='block';
+      form.scrollIntoView({behavior:'smooth'});
+      form.reset();
+    });
+  </script>
+</body>
+</html>
